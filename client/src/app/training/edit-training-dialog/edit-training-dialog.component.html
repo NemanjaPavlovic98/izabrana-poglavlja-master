@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+
+<mat-dialog-content *ngIf="this.mode!=='delete'">
+  <ng-container *ngIf="form">
+    <div class="spinner-container" *ngIf="loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <ng-container [formGroup]="form">
+      <mat-form-field>
+        <input matInput placeholder="Naziv treninga" formControlName="naziv" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Izaberi nivo" formControlName="jacina">
+          <mat-option [value]="1">Početni</mat-option>
+          <mat-option [value]="2">Srednji</mat-option>
+          <mat-option [value]="3">Zahtevni</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-slide-toggle formControlName="spreman">Spreman?</mat-slide-toggle>
+      <mat-slide-toggle class="favourite" formControlName="omiljeni"
+        >Omiljeni?</mat-slide-toggle
+      >
+
+      <mat-form-field>
+        <mat-select multiple placeholder="Izaberi vezbe" formControlName="vezbe">
+          <mat-option *ngFor="let vezba of exercises" [value]="vezba.id">
+            {{vezba.naziv}} - {{vezba.trajanje}} min - {{vezba.kalorije}} kcal
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="picker-btn">
+        <input (change)="onImageChange($event)" type="file" />
+      </div>
+
+      <img
+        *ngIf="!!this.form.get('slika').value"
+        [src]="imagePreview"
+        alt="user"
+        class="logo"
+      />
+
+      <mat-form-field>
+        <textarea matInput placeholder="Opis" formControlName="opis">
+        </textarea>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+</mat-dialog-content>
+
+<mat-dialog-content *ngIf="this.mode==='delete'"></mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="onClose()">Close</button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="this.mode!=='delete' && (!form?.valid || (this.loading$ | async))"
+    (click)="onSave()"
+  >
+    {{this.mode !== 'delete' ? 'Save' : 'Ok'}}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,37 @@
+
+body {
+    margin: 0;
+}
+
+main {
+    margin: 30px;
+}
+
+.menu-button {
+    background: transparent;
+    color: white;
+    border: none;
+    cursor:pointer;
+    outline:none;
+}
+
+
+.spinner-container {
+  width: 100%;
+  margin-top: 100px;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    min-width: 200px;
+
+    .fill-space {
+        flex: 1;
+    }
+
+    mat-icon {
+        margin-right: 15px;
+    }
+}

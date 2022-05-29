@@ -1,0 +1,42 @@
+.training-card {
+  margin: 20px 10px;
+}
+
+.mat-card-header {
+  justify-content: center;
+}
+
+.training-actions {
+  text-align: center;
+}
+
+.training-actions button {
+  margin: 0px 10px 10px 10px;
+}
+
+.image {
+  height: 150px;
+  object-fit: cover;
+}
+
+.short-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.short-info .item {
+  display: flex;
+}
+
+.short-info .item .sub-item {
+  margin-right: 10px;
+}
+
+.short-info .item .text {
+  font-size: 20px;
+}
+
+.short-info .item mat-icon {
+  font-size: 20px;
+}

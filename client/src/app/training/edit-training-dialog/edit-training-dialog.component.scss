@@ -1,0 +1,27 @@
+.mat-form-field {
+  display: block;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+mat-slide-toggle.favourite::ng-deep {
+  margin: 10px 0px 20px 10px;
+}
+
+img.logo {
+  height: 120px;
+  width: 100%;
+  object-fit: contain;
+}
+
+// input[type="file"] {
+  // visibility: hidden;
+  // width: 1px;
+// }
+
+.pick-image-btn {
+  margin-bottom: 1.2rem;
+}

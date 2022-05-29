@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+
+<mat-dialog-content *ngIf="this.mode !== 'delete'">
+  <ng-container *ngIf="form">
+
+    <div class="spinner-container" *ngIf="loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <ng-container [formGroup]="form">
+      <mat-form-field>
+        <input matInput placeholder="Naziv vezbe" formControlName="naziv" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="Trajanje (min)" formControlName="trajanje" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="Kalorije (kcal)" formControlName="kalorije" />
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-select
+          multiple
+          placeholder="Izaberi grupe misica"
+          formControlName="grupa_misica"
+        >
+          <mat-option *ngFor="let muscle of muscles" [value]="muscle.id">
+            {{ muscle.naziv }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </ng-container>
+  </ng-container>
+</mat-dialog-content>
+
+<mat-dialog-content *ngIf="this.mode === 'delete'"></mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="onClose()">Close</button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="
+      this.mode !== 'delete' && (!form?.valid || (this.loading$ | async))
+    "
+    (click)="onSave()"
+  >
+    {{ this.mode !== "delete" ? "Save" : "Ok" }}
+  </button>
+</mat-dialog-actions>

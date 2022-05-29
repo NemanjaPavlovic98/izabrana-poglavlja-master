@@ -1,13 +1,17 @@
 const express = require("express");
-
-const treningRoutes = require("./routes/trening.routes");
-
+const path = require("path");
 const { errorNotCaught, errorNotFound } = require("./middleware/error");
+
+const trainingRoutes = require("./routes/training.routes");
+const exerciseRoutes = require("./routes/exercise.routes");
+const musclesRoutes = require("./routes/muscles.routes");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/images", express.static(path.join("./", "/images")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -27,7 +31,9 @@ app.get("/", (req, res) => {
 });
 
 //routes
-app.use("/trening", treningRoutes);
+app.use("/training", trainingRoutes);
+app.use("/exercise", exerciseRoutes);
+app.use("/muscles", musclesRoutes);
 
 app.use(errorNotFound);
 app.use(errorNotCaught);

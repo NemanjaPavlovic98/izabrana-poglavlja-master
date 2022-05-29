@@ -1,0 +1,50 @@
+<div class="training" *ngIf="training$ | async">
+  <div
+    class="header"
+    [ngStyle]="{ 'background-image': 'url(' + training.slika + ')' }"
+  >
+    <div class="layer"></div>
+    <h1>{{ training.naziv }}</h1>
+    <div [ngSwitch]="training.jacina" class="icons">
+      <div *ngSwitchCase="1">
+        <mat-icon>fitness_center</mat-icon>
+      </div>
+      <div *ngSwitchCase="2">
+        <mat-icon>fitness_center</mat-icon>
+        <mat-icon>fitness_center</mat-icon>
+        <mat-icon>fitness_center</mat-icon>
+      </div>
+      <div *ngSwitchCase="3">
+        <mat-icon>fitness_center</mat-icon>
+        <mat-icon>fitness_center</mat-icon>
+        <mat-icon>fitness_center</mat-icon>
+        <mat-icon>fitness_center</mat-icon>
+        <mat-icon>fitness_center</mat-icon>
+      </div>
+      <div *ngSwitchDefault></div>
+    </div>
+  </div>
+
+  <div class="desc">
+    <h3>{{ training.opis }}</h3>
+  </div>
+
+  <div class="spinner-container" *ngIf="loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="exercises" *ngIf="vezbe">
+    <div *ngFor="let vezba of vezbe" class="item">
+      <div class="text">
+        <span style="font-family: Helvetica; font-weight: bolder">{{
+          vezba.naziv
+        }}</span>
+        ({{ vezba.trajanje }} min - {{ vezba.kalorije }} kcal)
+      </div>
+      <div class="action">
+        <mat-icon (click)="onStartExercise(vezba)" *ngIf="!vezba.finished">play_circle</mat-icon>
+        <mat-icon (click)="onStartExercise(vezba)" *ngIf="vezba.finished">check_circle</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>

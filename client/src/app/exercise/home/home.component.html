@@ -1,0 +1,54 @@
+<div class="exercises-panel">
+  <div class="header">
+    <h2 class="title">Vezbe</h2>
+
+    <button mat-mini-fab>
+      <mat-icon (click)="onAddExercise()">add</mat-icon>
+    </button>
+  </div>
+
+  <div class="spinner-container" *ngIf="!(loading$ | async)">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <table
+    mat-table
+    [dataSource]="allExercises$ | async"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="naziv">
+      <th mat-header-cell *matHeaderCellDef>Naziv</th>
+      <td mat-cell *matCellDef="let element">{{ element.naziv }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="trajanje">
+      <th mat-header-cell *matHeaderCellDef>Trajanje</th>
+      <td mat-cell *matCellDef="let element">{{ element.trajanje }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="kalorije">
+      <th mat-header-cell *matHeaderCellDef>Kalorije</th>
+      <td mat-cell *matCellDef="let element">{{ element.kalorije }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="misic">
+        <th mat-header-cell *matHeaderCellDef>Grupa misica</th>
+        <td mat-cell *matCellDef="let element">{{ element.grupa_misica_naziv }}</td>
+      </ng-container>
+
+    <ng-container matColumnDef="akcije">
+      <th mat-header-cell *matHeaderCellDef>Akcije</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="onEditExercise(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onDeleteExercise(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

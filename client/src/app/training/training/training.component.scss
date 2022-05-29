@@ -1,0 +1,69 @@
+.spinner-container {
+  width: 390px;
+}
+
+.training {
+  .desc {
+      text-align: center;
+      background-color: rgba(164, 249, 247, 0.755);
+      width: 90%;
+      margin: 20px auto;
+      padding: 20px 0px;
+      border-radius: 20px;
+  }
+
+  .header {
+    color: white;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+
+    h1 {
+      z-index: 999;
+      margin-bottom: 10px;
+    }
+
+    .icons {
+      z-index: 999;
+      color: yellow;
+    }
+
+    .layer {
+      background-color: rgba(0, 0, 0, 0.589);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+    }
+  }
+
+  .exercises {
+    padding: 0px 10px;
+
+    .item {
+      font-size: 17px;
+      margin: 10px 0px;
+      padding: 20px 10px;
+      background-color: rgb(236, 229, 229);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      mat-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #3f51b5;
+        font-size: 30px;
+        cursor: pointer;
+      }
+    }
+  }
+}

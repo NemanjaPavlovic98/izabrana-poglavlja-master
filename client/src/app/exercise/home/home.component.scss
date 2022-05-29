@@ -1,0 +1,44 @@
+.title {
+  text-align: center;
+  margin-right: 15px;
+}
+
+.exercises-panel {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.counters {
+  display: flex;
+}
+
+.filler {
+  flex: 1 1 auto;
+}
+
+h2 {
+  font-family: "Roboto";
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-container {
+  margin-top: 100px;
+}
+
+.mat-table {
+  margin-top: 30px;
+  width: 100%;
+
+  .mat-cell {
+    padding-right: 0px;
+  }
+
+  .mat-icon-button{
+      width: 25px !important;
+  }
+}
