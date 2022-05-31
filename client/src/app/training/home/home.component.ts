@@ -11,7 +11,7 @@ import { compareTrainings, Training } from '../model/training.model';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   waitingApproval$: Observable<number>;
