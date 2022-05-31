@@ -13,17 +13,17 @@
             <span>Vežbe</span>
         </a>
 
-        <a mat-list-item routerLink="/profile">
+        <a mat-list-item routerLink="/user/nemanja@gmail.com">
             <mat-icon>account_circle</mat-icon>
             <span>Profil</span>
         </a>
 
         <div class="fill-space"></div>
 
-          <a mat-list-item routerLink="/login">
+          <!-- <a mat-list-item routerLink="/login">
               <mat-icon>login</mat-icon>
               <span>Uloguj se</span>
-          </a>
+          </a> -->
 
           <a mat-list-item  (click)="logout()">
               <mat-icon>exit_to_app</mat-icon>
@@ -34,7 +34,7 @@
 
   </mat-sidenav>
 
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" *ngIf="userLoggedIn">
       <button class="menu-button" mat-icon-button (click)="start.open('mouse')">
           <mat-icon>menu</mat-icon>
       </button>

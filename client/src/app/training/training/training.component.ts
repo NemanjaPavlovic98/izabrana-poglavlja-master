@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {
   concatMap,
@@ -32,7 +32,8 @@ export class TrainingComponent implements OnInit {
 
   constructor(
     private trainingService: TrainingService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -53,7 +54,7 @@ export class TrainingComponent implements OnInit {
   }
 
   onStartExercise(vezba: any){
-    console.log(vezba)
-    vezba.finished = !vezba.finished;
+    // vezba.finished = !vezba.finished;
+    this.router.navigate(['training/start', {vezba: vezba.id, training: this.training.id}]);
   }
 }

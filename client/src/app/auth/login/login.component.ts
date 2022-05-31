@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { login } from '../auth.actions';
 
 import { AuthService } from '../auth.service';
-import { tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { noop } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   ) // private store: Store<AuthService>
   {
     this.form = fb.group({
-      email: ['test@angular-university.io', [Validators.required]],
+      email: ['nemanja@gmail.com', [Validators.required]],
       password: ['test', [Validators.required]],
     });
   }
@@ -38,9 +38,8 @@ export class LoginComponent implements OnInit {
     this.auth
       .login(val.email, val.password)
       .pipe(
-        tap((user) => {
-          console.log(user);
-
+        take(1),
+        tap((res) => {
           // this.store.dispatch(login({ user: user }));
 
           this.router.navigateByUrl('/training');

@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/exercise.controller");
 
 router.get("", controller.getExercise);
+router.get("/single/:id", controller.getSingleExercise);
 router.get("/:id", controller.getVezbeZaTrening);
 router.post("/create", controller.createExercise);
 router.post("/update", controller.updateExercise);

@@ -39,11 +39,11 @@
         <span style="font-family: Helvetica; font-weight: bolder">{{
           vezba.naziv
         }}</span>
-        ({{ vezba.trajanje }} min - {{ vezba.kalorije }} kcal)
+        ({{ vezba.trajanje / 60 | number: '1.1-2'}} min - {{ vezba.kalorije }} kcal)
       </div>
       <div class="action">
-        <mat-icon (click)="onStartExercise(vezba)" *ngIf="!vezba.finished">play_circle</mat-icon>
-        <mat-icon (click)="onStartExercise(vezba)" *ngIf="vezba.finished">check_circle</mat-icon>
+        <mat-icon (click)="onStartExercise(vezba)">play_circle</mat-icon>
+        <!-- <mat-icon (click)="onStartExercise(vezba)" *ngIf="vezba.finished">check_circle</mat-icon> -->
       </div>
     </div>
   </div>

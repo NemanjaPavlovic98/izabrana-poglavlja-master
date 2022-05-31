@@ -8,6 +8,8 @@ import { TrainingComponent } from './training/training.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../shared/material.module';
+import { CountdownComponent } from './training/countdown/countdown.component';
+import { StopTrainingComponent } from './training/countdown/stop-training.component';
 // import { EntityDataService, EntityDefinitionService, EntityMetadataMap} from '@ngrx/data';
 // import {compareCourses, Course} from './model/course';
 // import {compareLessons, Lesson} from './model/lesson';
@@ -16,6 +18,10 @@ export const trainingRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'start',
+    component: CountdownComponent,
   },
   {
     path: ':trainingUrl',
@@ -35,6 +41,8 @@ export const trainingRoutes: Routes = [
     TrainingCardListComponent,
     EditTrainingDialogComponent,
     TrainingComponent,
+    CountdownComponent,
+    StopTrainingComponent
   ],
   exports: [
     HomeComponent,

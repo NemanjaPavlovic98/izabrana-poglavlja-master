@@ -6,6 +6,7 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,9 @@ import {
 })
 export class AppComponent {
   loading = true;
+  userLoggedIn;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
@@ -36,7 +38,15 @@ export class AppComponent {
         }
       }
     });
+
+    this.userLoggedIn = !!this.authService.getAuthData();
+    
+    this.authService.isLoggedIn.subscribe(
+      (res: boolean) => (this.userLoggedIn = res)
+    );
   }
 
-  logout() {}
+  logout() {
+    this.authService.logout();
+  }
 }

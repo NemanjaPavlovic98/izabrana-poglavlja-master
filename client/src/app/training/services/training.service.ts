@@ -37,7 +37,6 @@ export class TrainingService {
   }
 
   updateTraining(trainingData) {
-    console.log('TRAINING DATA UPDATE', trainingData);
     const trainingFinal = new FormData();
     trainingFinal.append('id', trainingData.id);
     trainingFinal.append('naziv', trainingData.naziv);
@@ -68,5 +67,9 @@ export class TrainingService {
 
   deleteTraining(id: number) {
     return this.http.delete(`${this.API_URL}/training/delete/${id}`);
+  }
+
+  createHistory(data: any) {
+    return this.http.post(`${this.API_URL}/history/create`, data);
   }
 }

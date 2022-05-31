@@ -24,6 +24,15 @@ async function getExercise(req, res, next) {
   }
 }
 
+async function getSingleExercise(req, res, next) {
+  try {
+    const result = await db.query(`select * from vezba where id = $1`, [req.params.id]);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function createExercise(req, res, next) {
   const pool = db.pool;
   (async () => {
@@ -134,4 +143,5 @@ module.exports = {
   createExercise,
   updateExercise,
   deleteExercise,
+  getSingleExercise
 };

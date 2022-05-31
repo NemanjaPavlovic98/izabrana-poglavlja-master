@@ -15,6 +15,10 @@ export class ExerciseService {
     return this.http.get(`${this.API_URL}/exercise`);
   }
 
+  getSingleExercises(id: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/exercise/single/${id}`);
+  }
+
   getAllMuscles(): Observable<any> {
     return this.http.get(`${this.API_URL}/muscles`);
   }

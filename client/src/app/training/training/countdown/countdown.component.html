@@ -1,0 +1,24 @@
+<section
+  class="current-training"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <ng-container *ngIf="!finished">
+    <mat-progress-spinner
+      mode="determinate"
+      [value]="progress"
+    ></mat-progress-spinner>
+
+    <h1>{{ progress }}%</h1>
+    <p>Keep on going, you can do it!</p>
+    <button mat-raised-button color="accent" (click)="onStop()">Stop</button>
+  </ng-container>
+
+  <ng-container *ngIf="finished">
+    <mat-icon
+    style="font-size: 70px; height: 70px; width: 70px; color: green"
+    >check</mat-icon
+  >
+  <p>Well done!</p>
+  </ng-container>
+</section>

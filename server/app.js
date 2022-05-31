@@ -5,6 +5,8 @@ const { errorNotCaught, errorNotFound } = require("./middleware/error");
 const trainingRoutes = require("./routes/training.routes");
 const exerciseRoutes = require("./routes/exercise.routes");
 const musclesRoutes = require("./routes/muscles.routes");
+const historyRoutes = require("./routes/history.routes");
+const userRoutes = require("./routes/users.routes");
 
 const app = express();
 
@@ -34,6 +36,8 @@ app.get("/", (req, res) => {
 app.use("/training", trainingRoutes);
 app.use("/exercise", exerciseRoutes);
 app.use("/muscles", musclesRoutes);
+app.use("/history", historyRoutes);
+app.use("/auth", userRoutes);
 
 app.use(errorNotFound);
 app.use(errorNotCaught);

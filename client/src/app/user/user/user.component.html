@@ -1,0 +1,23 @@
+<div class="content">
+  <h1>Dobrodosao</h1>
+  <h3>🏆 nemanja@gmail.com 🏆</h3>
+
+  <h4>Istorija vezbanja:</h4>
+  <div class="data" *ngFor="let hist of history">
+    <p class="">
+      <span class="date">
+        {{ hist.datum | date: "short" }}
+      </span>
+      -
+      <span class="kcal">
+        {{ hist.procenat }} kcal
+      </span>
+    </p>
+    <p class="trening">
+        <span class="title">Trening: </span> {{ hist.trening }}
+    </p>
+    <p class="trening">
+        <span class="title">Vezba: </span> {{ hist.vezba }}
+    </p>
+  </div>
+</div>
