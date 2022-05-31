@@ -7,6 +7,11 @@ import {
   Router,
 } from '@angular/router';
 import { AuthService } from './auth/auth.service';
+import { AuthState } from './auth/reducers';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { isLoggedIn } from './auth/auth.selectors';
+import { login, logout } from './auth/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +20,21 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent {
   loading = true;
-  userLoggedIn;
+  userLoggedIn$: Observable<boolean>;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private store: Store<AuthState>
+  ) {}
 
   ngOnInit() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token =  JSON.parse(localStorage.getItem("token"));
+    if(user && token) {
+      this.store.dispatch(login({user: {email: user, token: token}}))
+    }
+
     this.router.events.subscribe((event) => {
       switch (true) {
         case event instanceof NavigationStart: {
@@ -39,14 +54,24 @@ export class AppComponent {
       }
     });
 
-    this.userLoggedIn = !!this.authService.getAuthData();
-    
-    this.authService.isLoggedIn.subscribe(
-      (res: boolean) => (this.userLoggedIn = res)
+    //BEFORE STATE
+    // this.userLoggedIn = !!this.authService.getAuthData();
+    // this.authService.isLoggedIn.subscribe(
+    //   (res: boolean) => (this.userLoggedIn = res)
+    // );
+
+    //AFTER STATE
+    this.userLoggedIn$ = this.store.pipe(
+      select(isLoggedIn)
     );
   }
 
   logout() {
-    this.authService.logout();
+    //BEFORE STATE
+    // this.authService.logout();
+
+    //AFTER STATE
+    this.store.dispatch(logout());
+    this.router.navigate(['/login']);
   }
 }

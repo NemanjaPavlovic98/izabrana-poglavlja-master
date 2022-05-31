@@ -6,6 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
 //MATERIAL
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +22,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { IsLoggedInGuardGuard } from './auth/is-logged-in-guard.guard';
 import { TrainingComponent } from './training/training/training.component';
 import { LoginComponent } from './auth/login/login.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   {
@@ -70,8 +75,12 @@ const routes: Routes = [
     MatToolbarModule,
     MaterialModule,
     AuthModule.forRoot(),
-    // StoreModule.forRoot(authReducer),
-    // StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([]),
   ],
   providers: [AuthGuard, IsLoggedInGuardGuard],
   bootstrap: [AppComponent],

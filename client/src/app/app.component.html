@@ -34,7 +34,7 @@
 
   </mat-sidenav>
 
-  <mat-toolbar color="primary" *ngIf="userLoggedIn">
+  <mat-toolbar color="primary" *ngIf="userLoggedIn$ | async">
       <button class="menu-button" mat-icon-button (click)="start.open('mouse')">
           <mat-icon>menu</mat-icon>
       </button>
