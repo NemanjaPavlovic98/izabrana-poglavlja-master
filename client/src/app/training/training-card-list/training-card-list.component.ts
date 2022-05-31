@@ -7,7 +7,7 @@ import { defaultDialogConfig } from '../../shared/default-dialog-config';
 @Component({
   selector: 'training-card-list',
   templateUrl: './training-card-list.component.html',
-  styleUrls: ['./training-card-list.component.css'],
+  styleUrls: ['./training-card-list.component.scss'],
 })
 export class TrainingCardListComponent implements OnInit {
   @Input()
