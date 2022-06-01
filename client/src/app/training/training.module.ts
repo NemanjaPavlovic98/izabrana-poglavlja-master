@@ -10,14 +10,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../shared/material.module';
 import { CountdownComponent } from './training/countdown/countdown.component';
 import { StopTrainingComponent } from './training/countdown/stop-training.component';
+import { TrainingsResolver } from './resolvers/training.resolver';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { trainingsReducer } from './state-mgmt/reducers/index'
+import { TrainingsEffects } from './state-mgmt/training.effects';
 // import { EntityDataService, EntityDefinitionService, EntityMetadataMap} from '@ngrx/data';
-// import {compareCourses, Course} from './model/course';
-// import {compareLessons, Lesson} from './model/lesson';
 
 export const trainingRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    resolve: {
+      trainings: TrainingsResolver,
+    },
   },
   {
     path: 'start',
@@ -34,7 +40,9 @@ export const trainingRoutes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(trainingRoutes),
-    MaterialModule
+    MaterialModule,
+    StoreModule.forFeature('trainings', trainingsReducer),
+    EffectsModule.forFeature([TrainingsEffects])
   ],
   declarations: [
     HomeComponent,
@@ -42,7 +50,7 @@ export const trainingRoutes: Routes = [
     EditTrainingDialogComponent,
     TrainingComponent,
     CountdownComponent,
-    StopTrainingComponent
+    StopTrainingComponent,
   ],
   exports: [
     HomeComponent,
@@ -51,7 +59,7 @@ export const trainingRoutes: Routes = [
     TrainingComponent,
   ],
   entryComponents: [EditTrainingDialogComponent],
-  providers: [TrainingService],
+  providers: [TrainingService, TrainingsResolver],
 })
 export class TrainingModule {
   constructor() {}

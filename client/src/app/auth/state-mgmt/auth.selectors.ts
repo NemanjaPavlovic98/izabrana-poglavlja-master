@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store'
-import { AuthState } from './reducers';
+import { AuthState } from '../reducers';
 
 // feautre selector - ts trick to write typesafe selector
 export const selectAuthState = createFeatureSelector<AuthState>("auth")

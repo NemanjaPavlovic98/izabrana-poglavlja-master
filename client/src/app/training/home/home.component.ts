@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { compareCourses, Course } from '../model/training.model';
 import { Observable } from 'rxjs';
 import { defaultDialogConfig } from '../../shared/default-dialog-config';
 import { EditTrainingDialogComponent } from '../edit-training-dialog/edit-training-dialog.component';
@@ -7,6 +6,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { map, shareReplay } from 'rxjs/operators';
 import { TrainingService } from '../services/training.service';
 import { compareTrainings, Training } from '../model/training.model';
+import { Store, select } from '@ngrx/store';
+import { TrainingState } from '../state-mgmt/reducers';
+import {
+  selectFavouriteTrainings,
+  selectNotReadyTrainings,
+  selectReadyTrainings,
+} from '../state-mgmt/training.selectors';
 
 @Component({
   selector: 'home',
@@ -26,7 +32,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private store: Store<TrainingState>
   ) {}
 
   ngOnInit() {
@@ -34,23 +41,32 @@ export class HomeComponent implements OnInit {
   }
 
   reload() {
-    const trainings$ = this.trainingService.getAllTrainings().pipe(
-      map((training) => training.sort(compareTrainings)),
-      shareReplay()
-    );
+    //BEFORE STATE
+    // const trainings$ = this.trainingService.getAllTrainings().pipe(
+    //   shareReplay()
+    // );
 
-    this.loading$ = trainings$.pipe(map((trainings) => !!trainings));
+    // this.loading$ = trainings$.pipe(map((trainings) => !!trainings));
 
-    this.allTrainings$ = trainings$.pipe(
-      map((trainings) => trainings.filter((training) => !!training.spreman))
-    );
+    // this.allTrainings$ = trainings$.pipe(
+    //   map((trainings) => trainings.filter((training) => !!training.spreman))
+    // );
 
-    this.notReadyTrainings$ = trainings$.pipe(
-      map((trainings) => trainings.filter((training) => !training.spreman))
-    );
+    // this.notReadyTrainings$ = trainings$.pipe(
+    //   map((trainings) => trainings.filter((training) => !training.spreman))
+    // );
 
-    this.favouriteTrainings$ = trainings$.pipe(
-      map((trainings) => trainings.filter((training) => training.omiljeni && training.spreman))
+    // this.favouriteTrainings$ = trainings$.pipe(
+    //   map((trainings) => trainings.filter((training) => training.omiljeni && training.spreman))
+    // );
+
+    //AFTER STATE
+    this.allTrainings$ = this.store.pipe(select(selectReadyTrainings));
+
+    this.notReadyTrainings$ = this.store.pipe(select(selectNotReadyTrainings));
+
+    this.favouriteTrainings$ = this.store.pipe(
+      select(selectFavouriteTrainings)
     );
   }
 

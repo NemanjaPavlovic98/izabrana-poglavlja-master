@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
 // import { AuthState } from '../reducers';
-import { login } from '../auth.actions';
+import { login } from '../state-mgmt/auth.actions';
 
 import { AuthService } from '../auth.service';
 import { take, tap } from 'rxjs/operators';

@@ -9,9 +9,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { AuthService } from './auth.service';
-import { AuthState } from './reducers';
-import { isLoggedIn } from './auth.selectors';
+import { AuthService } from '../auth.service';
+import { AuthState } from '../reducers';
+import { isLoggedIn } from '../state-mgmt/auth.selectors';
 import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })

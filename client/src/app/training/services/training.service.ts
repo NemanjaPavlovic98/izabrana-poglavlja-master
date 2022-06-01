@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Exercise } from '../model/exercise.model';
+import { compareTrainings } from '../model/training.model';
 
 @Injectable()
 export class TrainingService {
@@ -11,7 +12,9 @@ export class TrainingService {
   constructor(private http: HttpClient) {}
 
   getAllTrainings(): Observable<any> {
-    return this.http.get(`${this.API_URL}/training`);
+    return this.http
+      .get(`${this.API_URL}/training`)
+      .pipe(map((training: any) => training.sort(compareTrainings)));
   }
 
   getTrainigByUrl(id: number): Observable<any> {

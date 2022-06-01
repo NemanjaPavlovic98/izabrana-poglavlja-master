@@ -10,8 +10,8 @@ import { AuthService } from './auth/auth.service';
 import { AuthState } from './auth/reducers';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { isLoggedIn } from './auth/auth.selectors';
-import { login, logout } from './auth/auth.actions';
+import { isLoggedIn } from './auth/state-mgmt/auth.selectors';
+import { login, logout } from './auth/state-mgmt/auth.actions';
 
 @Component({
   selector: 'app-root',
