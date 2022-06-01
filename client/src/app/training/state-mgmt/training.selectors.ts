@@ -25,3 +25,8 @@ export const selectFavouriteTrainings = createSelector(
   (trainings) =>
     trainings.filter((training) => training.omiljeni && training.spreman)
 );
+
+export const areTrainingsLoaded = createSelector(
+  selectTrainingState,
+  state => state.allTrainingsLoaded
+)

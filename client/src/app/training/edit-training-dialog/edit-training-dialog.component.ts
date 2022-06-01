@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { TrainingService } from '../services/training.service';
 import { Training } from '../model/training.model';
 import { mimeType } from 'src/app/common/mime-type.validator';
-import { Exercise } from '../model/exercise.model';
+import { Store } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
+import { trainingUpdate } from '../state-mgmt/training.actions';
 
 @Component({
   selector: 'training-dialog',
@@ -31,7 +33,8 @@ export class EditTrainingDialogComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<EditTrainingDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data,
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private store: Store
   ) {
     this.dialogTitle = data.dialogTitle;
     this.training = data.training;
@@ -106,9 +109,19 @@ export class EditTrainingDialogComponent {
       };
 
       if (this.mode == 'update') {
-        this.trainingService
-          .updateTraining(training)
-          .subscribe(() => this.dialogRef.close());
+        //BEFORE STATE
+        // this.trainingService
+        //   .updateTraining(training)
+        //   .subscribe(() => this.dialogRef.close());
+
+        //AFTER STATE
+        const update: Update<Training> = {
+          id: training.id,
+          changes: training
+        }
+        this.store.dispatch(trainingUpdate({update}))
+        this.dialogRef.close();
+
       } else {
         this.trainingService
           .saveTraining(training)

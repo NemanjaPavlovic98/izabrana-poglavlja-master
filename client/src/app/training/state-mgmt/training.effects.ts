@@ -8,13 +8,23 @@ import { allTrainingsLoaded } from './training.actions';
 
 @Injectable()
 export class TrainingsEffects {
-
-    loadTrainings$ = createEffect(
-        () => this.actions$.pipe(
-            ofType(TrainingActions.loadAllTrainings),
-            concatMap(action => this.trainingService.getAllTrainings()),
-            map(trainings => allTrainingsLoaded({trainings}))
-        )
+  loadTrainings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TrainingActions.loadAllTrainings),
+      concatMap((action) => this.trainingService.getAllTrainings()),
+      map((trainings) => allTrainingsLoaded({ trainings }))
     )
-  constructor(private actions$: Actions, private trainingService: TrainingService) {}
+  );
+  saveTraining$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TrainingActions.trainingUpdate),
+      concatMap((action) =>
+        this.trainingService.updateTraining(action.update.changes)
+      )
+    ), {dispatch: false}
+  );
+  constructor(
+    private actions$: Actions,
+    private trainingService: TrainingService
+  ) {}
 }
