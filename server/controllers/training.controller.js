@@ -48,7 +48,7 @@ async function createTraining(req, res, next) {
 
       const trening = await db.query(
         `insert into trening (naziv, slika, jacina, opis, spreman, omiljeni)
-        values ($1, $2, $3, $4, $5, $6) returning id`,
+        values ($1, $2, $3, $4, $5, $6) returning *`,
         [
           req.body.naziv,
           imagePath,
@@ -65,8 +65,22 @@ async function createTraining(req, res, next) {
           await client.query(insertStavkaText, [trening.rows[0].id, vezba]);
         });
       }
+
       await client.query("COMMIT");
-      res.status(200).json({ succes: true });
+
+      const fullTraining = await db.query(
+        `select t.*, t2.brojVezbi, t2.trajanje, t2.kalorije
+        from trening t
+        left join (
+            select tv.id_trening, count(tv.*) brojVezbi, sum(tvv.trajanje) trajanje, sum(tvv.kalorije) kalorije
+            from trening_vezba tv join vezba tvv
+            on tv.id_vezba = tvv.id
+            group by id_trening
+        ) t2 on t.id = t2.id_trening where t.id = $1`,
+        [trening.rows[0].id]
+      );
+
+      res.status(200).json({ succes: true, training: fullTraining.rows[0] });
     } catch (e) {
       await client.query("ROLLBACK");
       throw e;

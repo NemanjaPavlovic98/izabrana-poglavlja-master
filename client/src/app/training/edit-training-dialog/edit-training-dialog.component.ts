@@ -7,7 +7,7 @@ import { Training } from '../model/training.model';
 import { mimeType } from 'src/app/common/mime-type.validator';
 import { Store } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { trainingUpdate } from '../state-mgmt/training.actions';
+import { trainingCreate, trainingDelete, trainingUpdate } from '../state-mgmt/training.actions';
 
 @Component({
   selector: 'training-dialog',
@@ -99,9 +99,14 @@ export class EditTrainingDialogComponent {
 
   onSave() {
     if (this.mode == 'delete') {
-      this.trainingService
-        .deleteTraining(this.training.id)
-        .subscribe(() => this.dialogRef.close());
+      //BEFORE STATE
+      // this.trainingService
+      //   .deleteTraining(this.training.id)
+      //   .subscribe(() => this.dialogRef.close());
+
+      //AFTER STATE
+      this.store.dispatch(trainingDelete({ deletedId: this.training.id }));
+      this.dialogRef.close();
     } else {
       const training: Training = {
         ...this.training,
@@ -117,15 +122,19 @@ export class EditTrainingDialogComponent {
         //AFTER STATE
         const update: Update<Training> = {
           id: training.id,
-          changes: training
-        }
-        this.store.dispatch(trainingUpdate({update}))
+          changes: training,
+        };
+        this.store.dispatch(trainingUpdate({ update }));
         this.dialogRef.close();
-
       } else {
-        this.trainingService
-          .saveTraining(training)
-          .subscribe(() => this.dialogRef.close());
+        //BEFORE STATE
+        //   this.trainingService
+        //     .saveTraining(training)
+        //     .subscribe(() => this.dialogRef.close());
+
+        //AFTER STATE
+        this.store.dispatch(trainingCreate({ training }));
+        this.dialogRef.close();
       }
     }
   }

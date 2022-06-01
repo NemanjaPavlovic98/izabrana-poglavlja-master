@@ -12,6 +12,21 @@ export const allTrainingsLoaded = createAction(
 );
 
 export const trainingUpdate = createAction(
-  '[Edit Dialog] Course Updated',
+  '[Edit Dialog] Training Updated',
   props<{ update: Update<Training> }>()
+);
+
+export const trainingCreate = createAction(
+  '[Add Dialog] Training Created',
+  props<{ training: Partial<Training> }>()
+);
+
+export const trainingCreated = createAction(
+  '[Training Effect] Added New Training',
+  props<{ training: Training }>()
+);
+
+export const trainingDelete = createAction(
+  '[Edit Dialog] Training Deleted',
+  props<{ deletedId: number }>()
 );

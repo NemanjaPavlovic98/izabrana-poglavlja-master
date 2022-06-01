@@ -22,6 +22,12 @@ export const trainingsReducer = createReducer(
   ),
   on(TrainingActions.trainingUpdate, (state, action) =>
     adapter.updateOne(action.update, state)
+  ),
+  on(TrainingActions.trainingCreated, (state, action) =>
+    adapter.setAll([action.training, ...selectAll(state)], { ...state })
+  ),
+  on(TrainingActions.trainingDelete, (state, action) =>
+    adapter.removeOne(action.deletedId, state)
   )
 );
 
