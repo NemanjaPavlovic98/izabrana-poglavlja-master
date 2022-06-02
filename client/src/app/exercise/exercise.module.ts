@@ -6,13 +6,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MaterialModule } from '../shared/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
-export const exercisegRoutes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-  }
-];
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { exercisesReducer } from './state-mgmt/reducers/index'
+import { ExercisesEffects } from './state-mgmt/exercise.effects';
 
 @NgModule({
   declarations: [
@@ -22,9 +19,10 @@ export const exercisegRoutes: Routes = [
   imports: [
     CommonModule,
     MatDialogModule,
-    RouterModule.forChild(exercisegRoutes),
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature('exercises', exercisesReducer),
+    EffectsModule.forFeature([ExercisesEffects])
   ]
 })
 export class ExerciseModule { }

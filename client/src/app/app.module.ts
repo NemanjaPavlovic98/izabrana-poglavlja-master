@@ -23,6 +23,8 @@ import { IsLoggedInGuardGuard } from './auth/guards/is-logged-in-guard.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { HomeComponent } from './exercise/home/home.component';
+import { ExerciseModule } from './exercise/exercise.module';
 
 const routes: Routes = [
   {
@@ -38,8 +40,9 @@ const routes: Routes = [
   },
   {
     path: 'exercise',
-    loadChildren: () =>
-      import('./exercise/exercise.module').then((m) => m.ExerciseModule),
+    component: HomeComponent,
+    // loadChildren: () =>
+    //   import('./exercise/exercise.module').then((m) => m.ExerciseModule),
     canActivate: [AuthGuard],
   },
   {
@@ -74,6 +77,7 @@ const routes: Routes = [
     MatToolbarModule,
     MaterialModule,
     AuthModule.forRoot(),
+    ExerciseModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

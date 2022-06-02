@@ -15,6 +15,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { trainingsReducer } from './state-mgmt/reducers/index'
 import { TrainingsEffects } from './state-mgmt/training.effects';
+import { ExercisesResolver } from '../exercise/resolvers/exercise.resolver';
 // import { EntityDataService, EntityDefinitionService, EntityMetadataMap} from '@ngrx/data';
 
 export const trainingRoutes: Routes = [
@@ -23,6 +24,7 @@ export const trainingRoutes: Routes = [
     component: HomeComponent,
     resolve: {
       trainings: TrainingsResolver,
+      courses: ExercisesResolver
     },
   },
   {
@@ -59,7 +61,7 @@ export const trainingRoutes: Routes = [
     TrainingComponent,
   ],
   entryComponents: [EditTrainingDialogComponent],
-  providers: [TrainingService, TrainingsResolver],
+  providers: [TrainingService, TrainingsResolver, ExercisesResolver],
 })
 export class TrainingModule {
   constructor() {}

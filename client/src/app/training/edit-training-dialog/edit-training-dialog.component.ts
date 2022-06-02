@@ -5,9 +5,15 @@ import { Observable } from 'rxjs';
 import { TrainingService } from '../services/training.service';
 import { Training } from '../model/training.model';
 import { mimeType } from 'src/app/common/mime-type.validator';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { trainingCreate, trainingDelete, trainingUpdate } from '../state-mgmt/training.actions';
+import {
+  trainingCreate,
+  trainingDelete,
+  trainingUpdate,
+} from '../state-mgmt/training.actions';
+import { selectAllExercises } from 'src/app/exercise/state-mgmt/exercise.selectors';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'training-dialog',
@@ -53,7 +59,28 @@ export class EditTrainingDialogComponent {
       ],
     };
 
-    this.trainingService.getAllExercises().subscribe((res) => {
+    //BEFORE STATE
+    // this.trainingService.getAllExercises().subscribe((res) => {
+    //   this.exercises = res;
+    //   if (this.mode == 'update') {
+    //     this.trainingService
+    //       .getExerciseForTraining(this.training.id)
+    //       .subscribe((res) => {
+    //         this.selectedExercises = res;
+    //         this.form = this.fb.group(formControls);
+    //         this.form.patchValue({ ...data.training });
+    //         this.imagePreview = this.training.slika;
+    //         this.checkSelect();
+    //       });
+    //   } else if (this.mode == 'create') {
+    //     this.form = this.fb.group({
+    //       ...formControls,
+    //     });
+    //   }
+    // });
+
+    // AFTER STATE
+    this.store.pipe(select(selectAllExercises)).subscribe((res) => {
       this.exercises = res;
       if (this.mode == 'update') {
         this.trainingService
